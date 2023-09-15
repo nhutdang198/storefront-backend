@@ -9,7 +9,7 @@
 - Clone the repository
 
 ```
-git clone  https://github.com/nhutdang198/image-processing-api.git
+git clone  https://github.com/nhutdang198/storefront-backend
 ```
 
 - Install dependencies
@@ -19,10 +19,10 @@ cd storefront-backend
 npm install
 ```
 
-- .env file
+- run Docker
 
 ```
-create .env
+docker-copmose up -d
 ```
 
 - Migrate database

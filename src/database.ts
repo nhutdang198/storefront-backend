@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { Pool } from 'pg'
 
 const { PG_DEV_HOST,
@@ -10,5 +11,5 @@ export const client = new Pool({
     host: PG_DEV_HOST,
     database: PG_DEV_DATABASE,
     user: PG_DEV_USER,
-    password: PG_DEV_PASSWORD
+    password: PG_DEV_PASSWORD,
 })

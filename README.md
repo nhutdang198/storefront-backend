@@ -1,54 +1,131 @@
-# Storefront Backend Project
+# Storefront Backend
 
-## Getting Started
+# Pre-requisites
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+- Install [Node.js](https://nodejs.org/en/)
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+# Getting started
 
-## Steps to Completion
+- Clone the repository
 
-### 1. Plan to Meet Requirements
+```
+git clone  https://github.com/nhutdang198/image-processing-api.git
+```
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+- Install dependencies
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+```
+cd storefront-backend
+npm install
+```
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+- .env file
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+```
+create .env
+```
 
-### 2.  DB Creation and Migrations
+- Migrate database
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+```
+npm run migrate:up
+```
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+- Start application
 
-### 3. Models
+```
+npm run start
+```
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+- Testing
 
-### 4. Express Handlers
+```
+npm run test
+```
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+- API endpoints
 
-### 5. JWTs
+```
+Endpoint: GET /products
+Description: Retrieve a list of all products available in the store.
+Authentication: Token required
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
+Endpoint: GET /products/:productId
+Description: Retrieve details of a specific product by its ID.
+Authentication: Token required
 
-### 6. QA and `README.md`
+Endpoint: POST /products
+Description: Create a new product. Requires admin privileges.
+Authentication: Token required
 
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
+Endpoint: PUT /products/:productId
+Description: Update the details of a specific product by its ID.
+Authentication: Token required
 
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+Endpoint: DELETE /products/:productId
+Description: Delete a product by its ID. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: GET /products/category/:categoryName
+Description: Retrieve products by a specific category.
+Authentication: Token required
+
+Endpoint: POST /users
+Description: Register a new user.
+Authentication: Token required
+
+Endpoint: POST /users/login
+Description: Authenticate and log in a user, returning a JWT token.
+Authentication: Token required
+
+Endpoint: GET /users
+Description: Retrieve a list of all users. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: GET /users/:userId
+Description: Retrieve user details by ID. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: POST /orders
+Description: Create a new order.
+Authentication: Token required
+
+Endpoint: GET /orders
+Description: Retrieve a list of all orders. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: GET /orders/:orderId
+Description: Retrieve order details by ID. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: PUT /orders/:orderId
+Description: Update the status of an order by its ID. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: DELETE /orders/:orderId
+Description: Delete an order by its ID. Requires admin privileges.
+Authentication: Token required
+
+Endpoint: GET /users/:userId/current-order
+Description: Retrieve the current active order for a user.
+Authentication: Token required
+
+Endpoint: GET /users/:userId/completed-orders
+Description: Retrieve completed orders for a user.
+Authentication: Token required
+```
+
+- NPM script
+
+| Npm Script     | Description                                                                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `migrate:up`   | Runs the database migrations to apply pending changes. This command is used to update the database schema.                                             |
+|  |
+| `migrate:down` | Rolls back the last database migration. Use this command to revert changes made during the last migration.                                             |
+|  |
+| `start`        | Builds the TypeScript source code and starts the server. This command compiles your code and runs the server in production mode.                       |
+|  |
+| `test`         | Builds the TypeScript source code and runs Jasmine tests. This command is used to execute unit tests and ensure the correctness of your API endpoints. |
+
+Make sure to configure your environment variables and database connection details in a `.env` file before running these scripts. Additionally, ensure that your PostgreSQL database is set up and accessible.
+|

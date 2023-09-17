@@ -17,7 +17,7 @@ class User {
     static async createUser(firstName, lastName, username, password) {
         var _a;
         const hashedPassword = await bcrypt_1.default.hash(password, 10); // Hash the password with a salt factor of 10
-        const query = 'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING *';
+        const query = "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING *";
         const values = [firstName, lastName, username, hashedPassword];
         try {
             const result = await database_1.client.query(query, values);
@@ -33,7 +33,7 @@ class User {
      * @returns {Promise<User | null>} The user object or null if not found.
      */
     static async getUserById(userId) {
-        const query = 'SELECT * FROM users WHERE id = $1';
+        const query = "SELECT * FROM users WHERE id = $1";
         const values = [userId];
         try {
             const result = await database_1.client.query(query, values);
@@ -44,7 +44,7 @@ class User {
         }
     }
     static async getUserByUsername(username) {
-        const query = 'SELECT * FROM users WHERE username = $1';
+        const query = "SELECT * FROM users WHERE username = $1";
         const values = [username];
         try {
             const result = await database_1.client.query(query, values);
@@ -61,7 +61,7 @@ class User {
     static async getUsers() {
         try {
             // Query to fetch all users from the database
-            const query = 'SELECT * FROM users';
+            const query = "SELECT * FROM users";
             const result = await database_1.client.query(query);
             return result;
         }
@@ -77,7 +77,7 @@ class User {
     static async getCurrentUserOrders(userId) {
         try {
             // Query to fetch current user's orders from the database based on user ID
-            const query = 'SELECT * FROM orders WHERE user_id = $1';
+            const query = "SELECT * FROM orders WHERE user_id = $1";
             const result = await database_1.client.query(query, [userId]);
             return result;
         }
@@ -93,8 +93,8 @@ class User {
     static async getCompletedUserOrders(userId) {
         try {
             // Query to fetch completed orders for the user from the database based on user ID
-            const query = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
-            const result = await database_1.client.query(query, [userId, 'completed']);
+            const query = "SELECT * FROM orders WHERE user_id = $1 AND status = $2";
+            const result = await database_1.client.query(query, [userId, "completed"]);
             return result;
         }
         catch (error) {

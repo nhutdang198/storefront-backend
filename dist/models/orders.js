@@ -15,7 +15,7 @@ class Order {
      * @returns {Promise<number>} The ID of the newly created order.
      */
     static async createOrder(productIds, quantities, userId, status) {
-        const query = 'INSERT INTO orders (product_ids, quantities, user_id, status) VALUES ($1, $2, $3, $4) RETURNING id';
+        const query = "INSERT INTO orders (product_ids, quantities, user_id, status) VALUES ($1, $2, $3, $4) RETURNING id";
         const values = [productIds, quantities, userId, status];
         try {
             const result = await database_1.client.query(query, values);
@@ -31,8 +31,8 @@ class Order {
      * @returns {Promise<Order | null>} The current order for the user or null if not found.
      */
     static async getCurrentOrderByUser(userId) {
-        const query = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
-        const values = [userId, 'active'];
+        const query = "SELECT * FROM orders WHERE user_id = $1 AND status = $2";
+        const values = [userId, "active"];
         try {
             const result = await database_1.client.query(query, values);
             return result.rows[0] || null;
@@ -47,8 +47,8 @@ class Order {
      * @returns {Promise<Order[]>} An array of completed orders for the user.
      */
     static async getCompletedOrdersByUser(userId) {
-        const query = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
-        const values = [userId, 'complete'];
+        const query = "SELECT * FROM orders WHERE user_id = $1 AND status = $2";
+        const values = [userId, "complete"];
         try {
             const result = await database_1.client.query(query, values);
             return result.rows;

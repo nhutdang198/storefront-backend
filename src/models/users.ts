@@ -1,12 +1,13 @@
 import { QueryResult } from "pg";
 import { client } from "../database";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 class User {
   id!: string;
   first_name!: string;
   last_name!: string;
   password!: string;
+  username!: string;
 
   /**
    * Create a new user.
@@ -15,9 +16,15 @@ class User {
    * @param {string} password - The user's password.
    * @returns {Promise<number | null>} The ID of the newly created user or null on error.
    */
-  static async createUser(firstName: string, lastName: string, username: string, password: string): Promise<number | null> {
+  static async createUser(
+    firstName: string,
+    lastName: string,
+    username: string,
+    password: string
+  ): Promise<number | null> {
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password with a salt factor of 10
-    const query = 'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING *';
+    const query =
+      "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [firstName, lastName, username, hashedPassword];
 
     try {
@@ -34,7 +41,7 @@ class User {
    * @returns {Promise<User | null>} The user object or null if not found.
    */
   static async getUserById(userId: number): Promise<User | null> {
-    const query = 'SELECT * FROM users WHERE id = $1';
+    const query = "SELECT * FROM users WHERE id = $1";
     const values = [userId];
 
     try {
@@ -46,7 +53,7 @@ class User {
   }
 
   static async getUserByUsername(username: string): Promise<User | null> {
-    const query = 'SELECT * FROM users WHERE username = $1';
+    const query = "SELECT * FROM users WHERE username = $1";
     const values = [username];
 
     try {
@@ -64,7 +71,7 @@ class User {
   static async getUsers(): Promise<QueryResult> {
     try {
       // Query to fetch all users from the database
-      const query = 'SELECT * FROM users';
+      const query = "SELECT * FROM users";
       const result = await client.query(query);
       return result;
     } catch (error) {
@@ -80,7 +87,7 @@ class User {
   static async getCurrentUserOrders(userId: number): Promise<QueryResult> {
     try {
       // Query to fetch current user's orders from the database based on user ID
-      const query = 'SELECT * FROM orders WHERE user_id = $1';
+      const query = "SELECT * FROM orders WHERE user_id = $1";
       const result = await client.query(query, [userId]);
       return result;
     } catch (error) {
@@ -96,14 +103,13 @@ class User {
   static async getCompletedUserOrders(userId: number): Promise<QueryResult> {
     try {
       // Query to fetch completed orders for the user from the database based on user ID
-      const query = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
-      const result = await client.query(query, [userId, 'completed']);
+      const query = "SELECT * FROM orders WHERE user_id = $1 AND status = $2";
+      const result = await client.query(query, [userId, "completed"]);
       return result;
     } catch (error) {
       throw error;
     }
   }
-
 }
 
 export { User };

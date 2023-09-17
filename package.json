@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "migrate:up": "npx db-migrate up",
-    "migrate:down": "npx db-migrate down",
+    "migrate:up:test": "npx db-migrate up --env test",
+    "migrate:down:test": "npx db-migrate down --env test",
+    "migrate:up:dev": "npx db-migrate up --env dev",
+    "migrate:down:dev": "npx db-migrate down --env dev",
     "start": "tsc && node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "tsc && jasmine-ts"

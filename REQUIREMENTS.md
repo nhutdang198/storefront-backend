@@ -53,12 +53,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
-  product_ids INT[] NOT NULL,
-  quantities INT[] NOT NULL,
-  user_id INT NOT NULL,
+  quantity INT NOT NULL,
   status VARCHAR(255) NOT NULL,
-  CONSTRAINT fk_product_id FOREIGN KEY (product_ids) REFERENCES products (id)
-  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 #### Product Schema
@@ -81,3 +77,10 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL
 );
 
+#### Order Products Schema
+CREATE TABLE order_products (
+  order_id INT REFERENCES orders(id),
+  product_id INT REFERENCES products(id),
+  user_id INT REFERENCES users(id), 
+  PRIMARY KEY (order_id, product_id)
+);

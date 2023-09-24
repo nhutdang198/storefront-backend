@@ -14,18 +14,18 @@ const orders_1 = __importDefault(require("../models/orders"));
  */
 async function createOrder(req, res) {
     try {
-        const { productIds, quantities, userId, status } = req.body;
-        const orderId = await orders_1.default.createOrder(productIds, quantities, userId, status);
+        const { productId, quantity, userId, status } = req.body;
+        const orderId = await orders_1.default.createOrder(productId, quantity, userId, status);
         if (orderId !== null) {
             res.status(201).json({ orderId });
         }
         else {
-            res.status(500).json({ message: 'Failed to create order' });
+            res.status(500).json({ message: "Failed to create order" });
         }
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 exports.createOrder = createOrder;
@@ -43,12 +43,12 @@ async function getCurrentOrderByUser(req, res) {
             res.status(200).json(currentOrder);
         }
         else {
-            res.status(404).json({ message: 'Current order not found' });
+            res.status(404).json({ message: "Current order not found" });
         }
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 exports.getCurrentOrderByUser = getCurrentOrderByUser;
@@ -66,7 +66,7 @@ async function getCompletedOrdersByUser(req, res) {
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 exports.getCompletedOrdersByUser = getCompletedOrdersByUser;

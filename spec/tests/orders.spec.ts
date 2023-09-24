@@ -27,8 +27,8 @@ describe("Order Routes", () => {
     const newOrder = await request(app)
       .post("/orders")
       .send({
-        productIds: [newProduct.body.productId],
-        quantities: [1],
+        productId: newProduct.body.productId,
+        quantity: 5,
         userId: newUser.body.userId,
         status: "active",
       })

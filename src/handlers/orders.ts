@@ -1,7 +1,7 @@
 // handlers/order.ts
 
-import { Request, Response } from 'express';
-import Order from '../models/orders';
+import { Request, Response } from "express";
+import Order from "../models/orders";
 
 /**
  * Create a new order.
@@ -11,17 +11,22 @@ import Order from '../models/orders';
  */
 async function createOrder(req: Request, res: Response): Promise<void> {
   try {
-    const { productIds, quantities, userId, status } = req.body;
-    const orderId = await Order.createOrder(productIds, quantities, userId, status);
+    const { productId, quantity, userId, status } = req.body;
+    const orderId = await Order.createOrder(
+      productId,
+      quantity,
+      userId,
+      status
+    );
 
     if (orderId !== null) {
       res.status(201).json({ orderId });
     } else {
-      res.status(500).json({ message: 'Failed to create order' });
+      res.status(500).json({ message: "Failed to create order" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -31,7 +36,10 @@ async function createOrder(req: Request, res: Response): Promise<void> {
  * @param {Response} res - The Express response object.
  * @returns {Promise<void>}
  */
-async function getCurrentOrderByUser(req: Request, res: Response): Promise<void> {
+async function getCurrentOrderByUser(
+  req: Request,
+  res: Response
+): Promise<void> {
   try {
     const userId: number = parseInt(req.params.userId, 10);
     const currentOrder = await Order.getCurrentOrderByUser(userId);
@@ -39,11 +47,11 @@ async function getCurrentOrderByUser(req: Request, res: Response): Promise<void>
     if (currentOrder) {
       res.status(200).json(currentOrder);
     } else {
-      res.status(404).json({ message: 'Current order not found' });
+      res.status(404).json({ message: "Current order not found" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -53,7 +61,10 @@ async function getCurrentOrderByUser(req: Request, res: Response): Promise<void>
  * @param {Response} res - The Express response object.
  * @returns {Promise<void>}
  */
-async function getCompletedOrdersByUser(req: Request, res: Response): Promise<void> {
+async function getCompletedOrdersByUser(
+  req: Request,
+  res: Response
+): Promise<void> {
   try {
     const userId: number = parseInt(req.params.userId, 10);
     const completedOrders = await Order.getCompletedOrdersByUser(userId);
@@ -61,7 +72,7 @@ async function getCompletedOrdersByUser(req: Request, res: Response): Promise<vo
     res.status(200).json(completedOrders);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 

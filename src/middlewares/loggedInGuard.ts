@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-class UserGuardRequest extends Request {
+class UserGuardRequest {
   userId!: string;
   token!: string;
 }

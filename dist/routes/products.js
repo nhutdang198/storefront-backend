@@ -17,7 +17,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: A list of products.
  */
-router.get("/", loggedInGuard_1.loggedInGuard, products_1.getAllProducts);
+router.get("/", products_1.getAllProducts);
 /**
  * @swagger
  * /products/{productId}:

@@ -22,7 +22,7 @@ const router = express.Router();
  *       200:
  *         description: A list of products.
  */
-router.get("/", loggedInGuard, getAllProducts);
+router.get("/", getAllProducts);
 
 /**
  * @swagger
@@ -41,7 +41,7 @@ router.get("/", loggedInGuard, getAllProducts);
  *       200:
  *         description: Product details.
  */
-router.get("/:productId", loggedInGuard, getProductById);
+router.get("/:productId", getProductById);
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ router.get("/:productId", loggedInGuard, getProductById);
  *       201:
  *         description: The newly created product.
  */
-router.post("/", loggedInGuard, createProduct);
+router.post("/", createProduct);
 
 /**
  * @swagger

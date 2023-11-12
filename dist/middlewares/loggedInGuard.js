@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loggedInGuard = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-class UserGuardRequest extends Request {
+class UserGuardRequest {
 }
 async function loggedInGuard(req, res, next) {
     var _a, _b, _c;

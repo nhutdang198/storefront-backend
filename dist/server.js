@@ -22,14 +22,15 @@ exports.app.use((request, response, next) => {
     const minute = date.getMinutes();
     const second = date.getSeconds();
     const time = `[${year}/${month}/${day} ${hour}:${minute}:${second}]`;
-    console.log(time + ' ' + request.method + ' ' + request.url);
+    console.log(time + " " + request.method + " " + request.url);
     next();
 });
-exports.app.use('/users', users_1.default);
-exports.app.use('/products', products_1.default);
-exports.app.use('/orders', orders_1.default);
-exports.app.use('/authentications', authentication_1.default);
+exports.app.use("/users", users_1.default);
+exports.app.use("/products", products_1.default);
+exports.app.use("/orders", orders_1.default);
+exports.app.use("/authentications", authentication_1.default);
 const { PORT } = process.env;
+console.log(process.env);
 exports.app.listen(PORT, function () {
     console.log(`starting app on: ${PORT}`);
 });
